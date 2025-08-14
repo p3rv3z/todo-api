@@ -32,3 +32,9 @@ Route.get('/test', async () => {
   console.log('test')
   return ['hello', 'world'].map(item => item.toUpperCase())
 })
+
+Route.get('/test2', async () => {
+  const b = 2;
+  console.log('test2')
+  return ['hello2', 'world2'].map(item => item.toUpperCase())
+})
