@@ -25,3 +25,10 @@ Route.get('/', async () => {
 })
 
 Route.resource('tasks', 'TasksController').apiOnly()
+
+
+Route.get('/test', async () => {
+  const a = 1;
+  console.log('test')
+  return ['hello', 'world'].map(item => item.toUpperCase())
+})
