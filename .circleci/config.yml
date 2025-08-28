@@ -1,18 +1,41 @@
 version: 2.1
 orbs:
-  python: circleci/python@3.0.0
+  node: circleci/node@5.0.2
+  heroku: circleci/heroku@1.2.6
+
 jobs:
-  build_and_test: # this can be any name you choose
-    executor: python/default # use the default executor defined within the orb
+  build_and_test:
+    executor: node/default
     steps:
-      - checkout # checkout source code
-      - python/install-packages:
-          pkg-manager: pip
-          pip-dependency-file: requirements.txt
+      - checkout
+      - node/install-packages:
+          pkg-manager: pnpm
       - run:
+          command: pnpm test
           name: Run tests
-          command: python -m pytest
+      - run:
+          command: pnpm build
+          name: Build app
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - .
+
+  deploy: # this can be any name you choose
+    executor: heroku/default
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - heroku/deploy-via-git:
+          force: true # force push when pushing to the heroku remote, see: https://devcenter.heroku.com/articles/git
+
 workflows:
-  build_test_deploy:
+  test_my_app:
     jobs:
       - build_and_test
+      - deploy:
+          requires:
+            - build_and_test # only deploy if the build_and_test job has completed
+          filters:
+            branches:
+              only: main # only deploy when on main
