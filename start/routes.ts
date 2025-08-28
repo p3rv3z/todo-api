@@ -61,3 +61,7 @@ Route.get('/test6', async () => {
   console.log('test2')
   return ['hello2', 'world2'].map(item => item.toUpperCase())
 })
+
+Route.get('/test6', async () => {
+  return User.query().where('id', 1).first();
+})
