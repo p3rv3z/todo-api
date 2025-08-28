@@ -43,3 +43,21 @@ Route.get('/test6', async () => {
   console.log('test2')
   return ['hello2', 'world2'].map(item => item.toUpperCase())
 })
+
+Route.get('/test6', async () => {
+  const b = 2;
+  console.log('test2')
+  return ['hello2', 'world2'].map(item => item.toUpperCase())
+})
+
+Route.get('/test6', async () => {
+  const b = 2;
+  console.log('test2')
+  return ['hello2', 'world2'].map(item => item.toUpperCase())
+})
+
+Route.get('/test6', async () => {
+  const b = 2;
+  console.log('test2')
+  return ['hello2', 'world2'].map(item => item.toUpperCase())
+})
